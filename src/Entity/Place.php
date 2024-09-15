@@ -19,6 +19,9 @@ class Place
     #[ORM\Column(length: 70)]
     private ?string $country = null;
 
+    #[ORM\OneToOne(mappedBy: 'place', cascade: ['persist', 'remove'])]
+    private ?Weather $weather = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,28 @@ class Place
     public function setCountry(string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getWeather(): ?Weather
+    {
+        return $this->weather;
+    }
+
+    public function setWeather(?Weather $weather): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($weather === null && $this->weather !== null) {
+            $this->weather->setPlace(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($weather !== null && $weather->getPlace() !== $this) {
+            $weather->setPlace($this);
+        }
+
+        $this->weather = $weather;
 
         return $this;
     }

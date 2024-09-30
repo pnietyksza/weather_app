@@ -5,13 +5,13 @@ namespace App\Service;
 /**
  * Class ApiService
  * 
- * @apiservice 
+ * @apiweatherservice 
  * 
  * https://www.weatherapi.com/docs/
  * 
  * A service class for interacting with the WeatherAPI.
  */
-class ApiService
+class ApiWeatherService
 {
     /**
      * The base URL for the WeatherAPI service.
